@@ -1,0 +1,106 @@
+create table clients(client_id int primary key,name varchar(20),age int,employ_status varchar(20),fav_movie varchar(20),fav_food varchar(20),hobby varchar(20))
+
+insert into clients values(101,'raj',30,'employed','romantic','sandwitch','cricket')
+insert into clients values(102,'rakia',10,'unemployed','horror','pizza','listenin music')
+insert into clients values(103,'kavit',20,'unemployed','romantic','berger','playing')
+insert into clients values(104,'kavitha',40,'employed','horror','pizza','drawing')
+insert into clients values(105,'pavithra',500,'employed','horror','pizza','watching movies')
+insert into clients values(106,'chithaa',90,'unemployed','romantic','pizza','travelling')
+insert into clients values(107,'zazuu',600,'employed','romantic','horror','travelling')
+insert into clients values(108,'pikku',600,'unemployed','horror','pizza','cooking')
+insert into clients values(109,'kichu',30,'employed','romantic','pizza,berger','travelling')
+insert into clients values(110,'kichuzz',20,'employed','romantic','pizza','walking')
+
+select * from clients
+
+drop table clients
+
+-->1
+select age,name from clients where name like 'r%' order by age asc
+-->2
+select client_id,name from clients where employ_status='unemployed'
+-->3
+select client_id,name,age from clients where age>40 and fav_movie='horror' and fav_food='pizza'
+-->4
+SELECT hobby, COUNT(*) as count_hobby
+FROM clients
+GROUP BY hobby order by count_hobby desc
+-->5
+select client_id,name from clients where length(fav_food)-length(replace(fav_food,',',''))+1>1
+-->6
+SELECT client_id,name, hobby
+FROM clients
+WHERE hobby IN (
+    SELECT hobby
+    FROM clients
+    GROUP BY hobby
+    HAVING COUNT(*) = 1)
+-->7
+select client_id,name,age from clients where age>20 and fav_movie='romantic' and fav_food='pizza'
+
+
+
+
+create table expense(expense_date date,category varchar(20),item varchar(20),cost number)
+
+
+INSERT INTO expense(expense_date, category, item, cost) VALUES (TO_DATE('2024-09-01', 'YYYY-MM-DD'), 'Rent', 'Monthly Rent', 1200);
+INSERT INTO expense(expense_date, category, item, cost) VALUES (TO_DATE('2024-09-01', 'YYYY-MM-DD'), 'Electricity', 'Electric Bill', 150);
+INSERT INTO expense(expense_date, category, item, cost) VALUES (TO_DATE('2024-09-02', 'YYYY-MM-DD'), 'Grocery', 'Groceries', 200);
+INSERT INTO expense(expense_date, category, item, cost) VALUES (TO_DATE('2024-09-03', 'YYYY-MM-DD'), 'Entertainment', 'Movies', 50);
+INSERT INTO expense(expense_date, category, item, cost) VALUES (TO_DATE('2024-09-07', 'YYYY-MM-DD'), 'Water', 'Water Bill', 30);
+INSERT INTO expense(expense_date, category, item, cost) VALUES (TO_DATE('2024-09-10', 'YYYY-MM-DD'), 'Grocery', 'Groceries', 250);
+
+select * from expense
+
+-->total expense by day
+SELECT 
+    expense_date, 
+    category, 
+    SUM(cost) AS total_cost
+FROM 
+    expense
+GROUP BY 
+    expense_date, 
+    category
+ORDER BY 
+    expense_date, 
+    category;
+
+
+
+
+-->week
+SELECT 
+    TRUNC(expense_date, 'IW') AS week_start, -- Start of the week
+    category, 
+    SUM(cost) AS total_cost
+FROM 
+    expenses
+GROUP BY 
+    TRUNC(expense_date, 'IW'), 
+    category
+ORDER BY 
+    week_start, 
+    category;
+
+
+
+-->month
+SELECT 
+    TO_CHAR(expense_date, 'YYYY-MM') AS month, -- Year and month
+    category, 
+    SUM(cost) AS total_cost
+FROM 
+    expenses
+GROUP BY 
+    TO_CHAR(expense_date, 'YYYY-MM'), 
+    category
+ORDER BY 
+    month, 
+    category;
+
+
+
+
+

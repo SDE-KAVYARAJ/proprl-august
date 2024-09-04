@@ -1,0 +1,20 @@
+Assignment procedure
+
+-->Create a function that returns the number of employees in a department [  Parameter taken by the function is deptid]
+
+create or replace function count_employee(deptno in int)
+return number
+is
+ecount number:=0;
+begin
+select count(*) into ecount from employee where deptno=deptno;
+return ecount;
+end;
+
+declare
+deptno number:=1;
+num_em number;
+begin
+num_em:=count_employee(deptno);
+dbms_output.put_line(num_em);
+end;

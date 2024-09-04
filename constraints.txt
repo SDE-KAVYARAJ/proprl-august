@@ -1,0 +1,218 @@
+-->unique
+drop table dep
+
+create table dep(depid int unique,depname varchar(20))
+
+insert into dep(depid,depname) values(1,'HR')
+insert into dep(depid,depname) values(1,'HR')--> violated
+insert into dep(depid,depname) values(2,'HR')
+insert into dep(depid,depname) values(null,'HR')
+insert into dep values(2,'accounts')
+desc dep
+
+
+
+--->not null
+create table dep(depid int not null,depname varchar(20))
+
+
+desc table deaprtment2
+drop table deaprtment2
+
+desc table dep
+
+
+-->parent table
+
+create table dep(depid int primary key,depname varchar(20))
+
+drop table employee
+
+drop table dep
+
+-->child table
+create table employee(emid int primary key,empname varchar(20),salary number(8,2),depid int,constraint fk_depid foreign key(depid) references dep(depid)on delete set null)
+
+insert into dep(depid,depname) values(1,'HR')
+
+insert into dep values(2,'accounts')
+
+
+select * from dep
+
+-->insert values to employee
+insert into employee values(101,'venu',1000,1)
+
+insert into employee values(102,'aenu',5000,2)
+
+insert into employee values(103,'manu',11000,1)
+
+select * from employee
+
+
+delete from dep where depid=1
+
+-->on delete set null
+
+
+->paremt table
+
+create table dep(depid int primary key,depname varchar(20))
+
+-->child table
+create table employee(emid int primary key,empname varchar(20),salary number(8,2),depid int,constraint fk_depid foreign key(depid) references dep(depid)on delete cascade)
+
+insert into dep(depid,depname) values(1,'HR')
+
+insert into dep values(2,'accounts')
+
+
+select * from dep
+
+-->insert values to employee
+insert into employee values(101,'venu',1000,1)
+
+insert into employee values(102,'aenu',5000,2)
+
+insert into employee values(103,'manu',11000,1)
+
+select * from employee
+
+delete from dep where depid=1
+
+
+-->product table
+
+create table product(productid int primary key not null,productname varchar(50) unique,productdescription varchar(50),price int,weight int,companycode int)
+
+insert into product values(11293,'meswak','ayurvedic',30,200,112234)
+
+insert into product values(11294,'colgate','toothpaste',40,300,112233)
+
+insert into product values(11295,'pepsodent','toothpaste',40,400,112234)
+
+insert into product values(11296,'closeup','toothcare',50,500,112232)
+
+insert into product values(11297,'sensodyne','toothcare',700,600,112232)
+
+insert into product values(11298,'vicco','ayurvedic',70,600,112237)
+
+truncate table product
+
+select * from product
+
+
+insert into product values(11293,'meswak','ayurvedic',30,200,112234)
+
+insert into product values(11294,'colgate','toothpaste',40,300,112233)
+
+insert into product values(11295,'pepsodent','toothpaste',40,400,112234)
+
+insert into product values(11296,'closeup','toothcare',50,500,112232)
+
+insert into product values(11297,'sensodyne','toothcare',700,600,112232)
+
+insert into product values(11298,'vicco','ayurvedic',70,600,112237)
+
+select distinct productdescription from product
+
+-->how to copy a table data into another table second table should be having the same structure
+
+create table product1(productid int primary key not null,productname varchar(50) unique,productdescription varchar(50),price int,weight int,companycode int)
+
+select * from product1
+
+-->copying data
+
+insert into product1 select * from product
+
+select * from product1
+
+-->where
+select productname,productdescription from product where productdescription='toothcare'
+
+select productid,productname,productdescription,price+100 from product
+
+select productid,productname,productdescription,price+100 as "price increased by 100" from product
+
+
+select productid,productname,productdescription,price,price+100 as "price increased by 100" from product
+
+select productid,productname,productdescription,price as rate,price+100 as "price increased by 100" from product
+
+-->comparison or relational operators
+
+select * from product where price<>40 --(<>symbol represents not equal to)
+
+-->between..and
+
+select productname,price from product where price between 30 and 60
+
+-->in
+
+select productname,price from product where price in (10,50,70)
+
+insert into product values(11299,'test','ayurvedic',30,null,112237)
+
+select * from product
+
+select productname,productdescription,weight from product where weight is null
+
+->like
+
+->getting the name starts with c
+
+select productname from product  where productname like 'c%' 
+
+->getting the name ends with ate
+
+select productname from product where productname like '%ate%'
+
+select productname from product where productname like '%ate'
+
+-->
+select productname from product where productname like 'c_'--->match any string that starts with c and followed by any single character
+
+-->
+insert into product values(11210,'coo','ayurvedic',30,null,112237)
+
+select productname from product where productname like 'c__'  --->match any string that starts with c and followed by two character
+
+
+-->not starting with c
+
+select productname from product  where productname not like 'c%'
+
+-->logical operators
+price<=40 weight>200
+
+select productname,price from product where price<=40 and weight>200
+
+select productname,price from product where price<=40 or weight>200
+
+select productname,price from product where not (price>40)
+
+--->concatenate(pipe symbol || )
+
+create table employ(firstname varchar(20),lastname varchar(20),salary number)
+
+insert into employ values('kavya','raj',25000)
+insert into employ values('arjun','r',25000)
+
+select * from employ
+
+select firstname ||' '||lastname as "fullname" from employ
+
+
+
+
+
+INSERT ALL
+ INTO Company (CompanyCode, Companyname)
+VALUES(112232, 'Proctor & Gamble')
+INTO Company (CompanyCode, Companyname)
+VALUES(112237, 'Hindusthan Unilever limited')
+INTO Company (CompanyCode, Companyname)
+VALUES(112236, 'Dabur')
+select * from dual
+

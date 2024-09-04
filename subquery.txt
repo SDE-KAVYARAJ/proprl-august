@@ -1,0 +1,162 @@
+-->join 3 tables
+
+create table e1(enum int,en varchar(9),did int)
+
+create table d1(dnum int,dna varchar(9))
+
+create table s1(enum int,salary int)
+
+select e1.enum,e1.en,d1.dna,s1.salary from e1 join d1 on e1.did=d1.dnum join s1 on e1.enum=s1.enum;
+
+
+
+--->FUNCTIONS
+-->aggregate functions
+-->count
+->count column rows
+select count(productname) from product
+select count(productname) from product where price<50--->null values are not counted
+select avg(price) from product
+select sum(price)from product
+select min(price) as "smallest price" from product
+select max(price) as "largest price" from product
+
+-->group by-having
+
+select productdescription,count(productdescription) from product group by productdescription
+
+
+select productdescription,count(productname) from product group by productdescription
+
+
+
+select productdescription,count(price) from product group by productdescription-->any column use to count
+
+select count(productdescription) from product group by productdescription
+
+
+select productdescription,min(price)from product group by productdescription having min(price)<50-->among that three result find the min
+
+
+select productdescription,min(price)from product group by productdescription where min(price)<50-->not working where bcz more than one row is min(price)
+
+
+--->date function
+
+select sysdate from dual
+
+-->select current_date from dual
+
+select last day(sysdate) from dual
+
+-->last month of current
+
+select months_between(sysdate, date '2021-08-27') from dual-->past -->months between these two dates
+
+select months_between(sysdate, date '2030-08-27') from dual-->negative future
+
+--trunc->
+select trunc(sysdate,'month')month from dual--->first day of the month
+
+-->first day of this year
+select trunc(sysdate,'year')year from dual
+
+-->
+select trunc(sysdate,'day')day from dual-->first date of the week
+
+-->
+select trunc(date '2024-08-27','day')day from dual-->first date of the week
+
+-->extracting month,date,year from the system
+
+-->
+select extract(month from sysdate)month from dual
+
+select extract(day from sysdate)day from dual
+
+select extract(year from sysdate)year from dual
+
+-->
+select trunc(months_between(date '2050-08-27',sysdate)/12)as years_difference from dual
+
+-->
+arithmetic function
+->ceil()
+
+select 1561.010 as "number",ceil(1561.31)from dual--->this returns up value roubd
+
+select 1561.010 as "number",ceil(1561.810)from dual
+
+select ceil(152.11)from dual
+
+select round(152.89)from dual
+
+select round(152.89,1)from dual--->152.8
+
+select round(152.89,2)from dual--->152.89
+
+select power(3,2)from dual
+
+select floor(152.89)from dual
+
+--character functions
+
+select lower('COMPUTER')from dual
+
+select upper('comPUTER')from dual
+
+select initcap('kavy raj')from dual
+
+select length('com sci')from dual
+
+select substr('good mor',1)from dual
+
+select substr('good morning',-5,4)from dual--->starting from 5 characters at the nd and 4 means the length of substring
+
+select instr('good morning','go')from dual
+
+select concat('good morning','  kavya')from dual
+
+
+select concat('null','  kavya')from dual
+
+
+select * from product
+select productname,price from product where price=
+(select price from product where productname='coo')
+
+select productname,productdescription,price from product where productdescription=
+(select productdescription from product where companycode=112233)
+
+
+
+-->using in operator
+select productname,productdescription,price from product where productdescription in
+(select productdescription from product where companycode=112232)
+
+select productname,productdescription,price from product where price<all
+(select price from product where productdescription='toothcare')
+
+select productname,price,productdescription from product where (price,productdescription) in 
+(select price,productdescription from product where productname='sensodyne')
+
+
+
+update product set productdescription='toothcare' where productname='closeup'
+
+
+select productname,price,productdescription from product where (price,productdescription) in 
+(select price,productdescription from product where productname='coo')
+
+
+select * from company
+
+select companyname,
+(select sum(price) from product where product.companycode=company.companycode)
+as "sum of price"
+from company
+
+select companyname,
+(select sum(price) from product where companycode=company.companycode)
+as "sum of price"
+from company

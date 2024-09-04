@@ -1,0 +1,9 @@
+-->join 3 tables
+
+create table e1(enum int,en varchar(9),did int)
+
+create table d1(dnum int,dna varchar(9))
+
+create table s1(enum int,salary int)
+
+select e1.enum,e1.en,d1.dna,s1.salary from e1 join d1 on e1.did=d1.dnum join s1 on e1.enum=s1.enum;

@@ -1,0 +1,94 @@
+desc product
+
+create view productview as select productname,productdescription,price from product
+
+create view productviews as select productname,productdescription,price from product where price>=50
+
+create view productviewss as select productname,productdescription,price from product where price<=50
+
+select * from productviewss
+
+select * from productviews
+
+select * from productview
+
+drop view productviews
+
+desc employ
+
+select * from employ
+
+create view view_emp(FIRSTNAME,LASTNAME,SALARY,DEPID)as select * from employ where salary<25000 with check option
+
+create view view_emp1(FIRSTNAME,LASTNAME,SALARY)as select * from employ where salary<25000 with check option--->error  invalid number of column names specified
+
+--->using select * from,provide all the column names as parameters
+
+-->or use like below
+
+create view view_emp1 as select * from employ where salary<25000 with check option
+
+select * from view_emp
+
+select * from view_emp1
+
+--updatable view
+insertion in view
+--insert into view checking affect the orginal table
+
+insert into view_emp1 values('paru','ak',10000,1)-->updated in view
+
+select * from employ
+
+
+-->non updatable view
+
+select productid,sum(quantity)as totalquantity from sales group by productid
+
+-->indexes
+create index product_index on product(price)
+
+desc product_index
+
+select * from product_index--->not possible
+
+drop index product_index
+
+
+-->CREATE SEQUENCE
+
+create sequence seq1
+increment by 1
+start with 1
+maxvalue 10
+
+
+select * from seq1
+
+-->create a dummy table
+
+create table stu(sid int,name varchar(20))
+
+use the seuence number in stu table
+
+drop table stu
+
+create table stu(sid int primary key,name varchar(20))
+
+insert into stu(sid,name)values(seq1.nextval,'abhiram')--->nextvalue
+
+select * from stu
+
+insert into stu(sid,name)values(seq1.nextval,'kavya')
+
+insert into stu(sid,name)values(seq1.nextval,'abhi')
+
+insert into stu(sid,name)values(seq1.nextval,'achu')
+
+insert into stu(sid,name)values(seq1.nextval,'zazuu')
+
+select seq1.currval from dual--->current value
+
+
+
+

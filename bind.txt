@@ -1,0 +1,24 @@
+bind
+
+select * from employ
+
+select * from employee
+
+select salary from employee where enumber=:enumber  (any variable)
+   
+
+select salary from employee where enumber=:enum((any variable name))
+
+
+declare
+v_ename  varchar(20);
+
+begin 
+select ename into v_ename from employee where enumber=:enum;
+dbms_output.put_line('employee name : '|| v_ename);
+
+end
+
+
+
+write a function which accepts empid and calculates the annual salary as annaul salary:=monthly_salary*12;

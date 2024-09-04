@@ -1,0 +1,106 @@
+joins_assignment
+
+1. Names of employees who are managers
+
+SELECT employee_name
+FROM employee
+WHERE employee_id = manager_id;
+
+
+2. List of all employees with department name and annual income
+
+SELECT 'Every Year ' || employee_name || ' of ' || department_name || 
+' department earns amount ' || (salary * 12) AS "Annual Income Report"
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id;
+
+
+3. Report of department names and employee names
+
+SELECT department_name, employee_name
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id
+ORDER BY department_name ASC, employee_name DESC;
+
+
+4. Employee names and department names for employees in Toy or Shoe department
+
+SELECT employee_name, department_name
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id
+WHERE department_name IN ('Toy', 'Shoe');
+
+
+5. Concatenated employee name and department name
+
+SELECT employee_name || ', ' || department_name AS "Employee and Department"
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id;
+
+6. Employee details for those who work in DALLAS
+
+SELECT employee_name, job, employees.department_id, department_name
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id
+WHERE location = 'DALLAS';
+
+
+7. List the names of all employees along with the names of their managers
+
+SELECT e.employee_name AS "Employee", m.employee_name AS "Manager"
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.employee_id;
+
+
+8. Employee name, manager number, and manager name including King
+
+SELECT e.employee_name, e.manager_id, m.employee_name AS "Manager"
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.employee_id
+UNION
+SELECT 'King' AS employee_name, NULL AS manager_id, NULL AS manager_name
+FROM dual;
+
+9. Employees in the same department as 'Mathew'
+
+SELECT e.employee_name AS "Employee", e.department_id AS "Dept No", d.department_name AS "Dept Name"
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id
+WHERE e.department_id = (SELECT department_id FROM employees WHERE employee_name = 'Mathew');
+
+
+10. Unique listing of all jobs in department 30 including its location
+
+SELECT DISTINCT job, location
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id
+WHERE employees.department_id = 30;
+
+11. Display the name of students and the course they are doing
+
+SELECT student_name, course_name
+FROM students
+JOIN courses ON students.course_id = courses.course_id;
+
+12. Display the name of students and the batch name
+
+SELECT student_name, batch_name
+FROM students
+JOIN batches ON students.batch_id = batches.batch_id;
+
+13. Display the name of students and the course name even if no students in the course
+
+SELECT s.student_name, c.course_name
+FROM courses c
+LEFT JOIN students s ON c.course_id = s.course_id;
+
+14. Display the name of the customer, date of order, and items ordered
+
+SELECT customers.customer_name, orders.order_date, items.item_name
+FROM customers
+JOIN orders ON customers.customer_id = orders.customer_id
+JOIN order_items ON orders.order_id = order_items.order_id
+JOIN items ON order_items.item_id = items.item_id;
+
+
+

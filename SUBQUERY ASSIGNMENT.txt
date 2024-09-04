@@ -1,0 +1,58 @@
+SUBQUERY ASSIGNMENT
+
+-->Show the name, hiredate and job for employee with most seniority.
+
+select ename,hiredate,job from employee where hiredate=(select min(hiredate)from employee)
+
+-->Display number, name and salary for all employees who earn more than average salary and who work in a department with any employee whose name contains a ‘T’.
+
+select enumber,ename,salary from employee where salary>(select avg(salary) from employee)and deptno in(select deptno from employee where ename like '%t%')
+
+-->Write a query to display name, department number and salary of any employee whose department number and salary match department number and salary of any employee who earns a commission.
+
+select name,deptno,salary from employee where(deptno,salary)in(select deptno,salary from employee where comm is not null)
+
+
+-->Create a query to display employee that earn a salary that is higher than salary of all Clerks. Sort result on salary from highest to lowest.
+
+select ename,salary,job from employee where salary>all(select salary from employee where job='clerk')
+
+-->List each department that has an average salary less than the company average salary. Show department number and average salary.
+
+select deptno,avg(salary) from employee group by deptno having avg(salary)<(select avg(salary) from employee)
+
+
+SELECT
+----------
+
+-->Display the list of designations from the employee table without showing the duplicate values.
+
+SELECT DISTINCT job AS "Designation"
+FROM emp
+ORDER BY job;
+
+-->Retrieve the details of all employees sorted in the alphabetical order of their name
+
+SELECT *
+FROM emp
+ORDER BY ename;
+
+-->Display the details of the employee in the descending order of the income.
+
+SELECT *
+FROM emp
+ORDER BY sal * 12 DESC;
+
+-->Display the details of all employees whose name starts with ‘A’ has ‘e’ in it and ends with ‘t’.
+
+SELECT *
+FROM emp
+WHERE ename LIKE 'A%e%t';
+
+-->Display the details of all employees who joined after ’01-Jan-98’ and whose salary is higher than 25000
+
+SELECT *
+FROM emp
+WHERE hiredate > TO_DATE('01-JAN-1998', 'DD-MON-YYYY')
+AND sal > 25000;
+

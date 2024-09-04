@@ -1,0 +1,119 @@
+select * from product
+
+-->order by
+
+select productname,price from product order by productname --->alphabetically
+
+select productname,price from product order by price --->ascending
+
+select productname,price from product order by price desc
+
+select productname,price from product order by price asc
+
+
+
+-->JOINS
+
+CREATE TABLE Company(
+Companycode INT PRIMARY KEY, 
+Companyname VARCHAR(50) UNIQUE);
+
+drop table company
+
+select * from company
+
+select * from product
+
+insert all into company(companycode,companyname)values(112232,'proctor &gamble') into company(companycode,companyname)values(112237,'himdustan')into company(companycode,companyname)values(112236,'dabur')select * from dual
+
+-->equi join/inner/join
+select productname,productdescription,companyname from product join company on product.companycode=company.companycode
+
+-->or(alias name for different table)
+select productname,productdescription,companyname from product p join company c on p.companycode=c.companycode
+
+-->having two tables
+select productname,productdescription,companyname from product p join company c using(companycode)
+
+
+-->OUTER JOIN
+
+-->LEFT OUTER JOIN(LEFT JOIN)
+
+select productname,productdescription,companyname from product left join company on product.companycode=company.companycode
+
+-->product is left table and company is right table
+
+-->changing left-company right-product
+
+
+select productname,productdescription,companyname from company left join product on product.companycode=company.companycode
+
+-->right join
+select productname,productdescription,companyname from product right join company on product.companycode=company.companycode
+
+select productname,productdescription,companyname from company right join product on product.companycode=company.companycode
+
+
+-->full join
+select productname,productdescription,companyname from product full join company on product.companycode=company.companycode
+
+-->self join
+
+CREATE TABLE Staff(EmpId INT PRIMARY KEY, managerId int , 
+Firstname VARCHAR(50) , Lastname VARCHAR(50), deptno int);
+
+Inserting values
+INSERT
+INTO Staff (EmpId , managerId , Firstname , Lastname , deptno)
+VALUES (111, '', 'Mark', 'Antony', 11)
+INSERT INTO Staff (EmpId , managerId , Firstname , Lastname , deptno)
+VALUES (112, 111, 'Julius', 'Cesar', 11)
+INSERT INTO Staff (EmpId , managerId , Firstname , Lastname , deptno)
+VALUES (113, 111, 'Cleopatra', 'C', 11)
+INSERT INTO Staff (EmpId , managerId , Firstname , Lastname , deptno)
+VALUES (114, 112, 'Brutus', 'B', 11)
+
+
+select * from staff
+
+
+-->imaginary manager table
+
+select employee.firstname "employee name",manager.firstname "manager name" from staff employee join staff manager
+on employee.managerid=manager.empid--->comparing with foreignkey/common id in a imaginary table
+
+select p.firstname "employee name",c.firstname "manager name" from staff p join staff c
+on 
+
+-->non-equi join
+
+
+CREATE TABLE PriceRange(RangeCode INT PRIMARY KEY, 
+Rangename VARCHAR(50) ,  LowerRange int, HigherRange int);
+
+INSERT ALL
+insert INTO PriceRange(RangeCode , Rangename , LowerRange , HigherRange )
+VALUES (111, 'Low', 1, 1000)
+insert INTO PriceRange (RangeCode , Rangename , LowerRange , HigherRange)
+VALUES (112, 'Medium', 1001, 10000)
+insert INTO PriceRange(RangeCode , Rangename , LowerRange , HigherRange)
+VALUES (113, 'High', 10001, 50000)
+
+select * from pricerange
+
+select * from product
+
+->we need p
+->no foreign keys
+->not same column in both tables
+
+select productname,price,rangename
+from product join pricerange on product.price between lowerrange and higherrange
+
+-->cross join
+have common code in both tables
+
+select productname,productdescription,price,companyname from product cross join company
+
+

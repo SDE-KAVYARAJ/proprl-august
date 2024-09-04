@@ -1,0 +1,166 @@
+--DDL
+CREATE TABLE Student(stu_id int,stu_name char(20),total_mark number(5,2))
+
+--ALTER
+
+--changing data type
+
+alter table Student modify stu_name varchar(20)
+
+--describe table structure
+desc Student
+
+--adding new column
+alter table Student add contact varchar(10)
+
+--changing size/length
+alter table Student modify stu_name varchar(30)
+
+--rename colum
+alter table Student rename column contact to mobile_no 
+
+
+--rename column
+alter table Student rename column contact to mobile_no 
+
+--to delete a column
+alter table student DROP COLUMN mobile_no
+
+--rename a table
+alter table student rename to student1
+
+desc student1
+
+--to delete all records->truncate
+truncate table student1
+
+--to delete the entire table--drop
+drop table student1
+
+
+--CONSTRAINTS
+--how to set a primary key
+create table department(dept_id int primary key,dept_name varchar(10))
+
+--without primary key
+--inserting values
+create table department(dept_id int,dept_name varchar(10))
+
+insert into department(dept_id,dept_name)values(101,'HR')
+insert into department(dept_id,dept_name)values(102,'IT')
+insert into department(dept_id,dept_name)values(101,'HR')
+
+
+select * from department
+
+--CHECKING PRIMARY KET CONSTRAINT
+create table department1(dept_id int primary key,dept_name varchar(10))
+desc department1
+
+insert into department1(dept_id,dept_name)values(101,'HR')
+insert into department1(dept_id,dept_name)values(102,'IT')
+insert into department1(dept_id,dept_name)values(101,'HR')
+insert into department1(dept_id,dept_name)values(108,'HR')
+insert into department1(dept_id,dept_name)values(109,'HR')
+select * from department1
+
+
+--create a table employe with attributes emp_id,emp_name,emp_slary_dept_name
+create table employee(emp_id int primary key,emp_name varchar(10),emp_salary number(8,2))
+select * from department
+
+alter table employee add department_id int
+
+desc employee
+
+desc department1
+
+--create a table and not remember to add a foreign key
+
+-- adding a foreign key by altering the table
+alter table employee add constraint fk_department_id foreign key(department_id) references department1(dept_id)
+
+--setting a foreign key at the time of table creation
+
+create table employee(emp_id int primary key,emp_name varchar(10),emp_salary number(8,2),department_id int,constraint fk_department_id foreign key(department_id) references department1(dept_id))
+
+desc employee
+
+drop table employee
+insert into employee(emp_id,emp_name,emp_salary,department_id)values(101,'anu',20000,101)
+
+insert into employee(emp_id,emp_name,emp_salary,department_id)values(102,'anu',20000,102)
+
+
+
+
+truncate table employee
+
+--insert multiple rows together
+insert all 
+into employee(emp_id,emp_name,emp_salary,department_id)values(101,'anu',20000,101)
+
+into employee(emp_id,emp_name,emp_salary,department_id)values(102,'anu',20000,102) select * from dual
+
+-->DML
+--2 nmaes existing id used
+->update
+update employee set emp_salary=50000 where emp_id=101
+
+update employee set salary=23000 where emp_name="binu"
+
+-->delete
+-->we can delete with name but be careful,same name exiting fuly deleted
+delete from employee where emp_id=101
+
+-->select
+insert all 
+into employee(emp_id,emp_name,emp_salary,department_id)values(104,'binu',10000,101)
+
+into employee(emp_id,emp_name,emp_salary,department_id)values(105,'chikku',80000,109) 
+
+into employee(emp_id,emp_name,emp_salary,department_id)values(106,'venu',90000,108) select * from dual
+
+--.select values from table
+
+select emp_name,emp_salary from employee
+
+-->condition check  with where
+select emp_name,emp_salary from employee where emp_salary<50000
+
+-->distinct -remove duplicates
+select distinct emp_name from employee
+
+
+
+select * from employee
+
+select * from department1
+
+create table abc(abc_is int,abc_name char(10),rating int)
+
+alter table abc modify abc_name varchar(20)
+
+alter table abc add location varchar(50)
+
+alter table abc add contact int
+
+alter table abc rename column location to address
+
+alter table abc drop column contact
+
+alter table abc rename column location to address
+
+alter table abc rename to DepartmentMaster
+
+truncate table DepartmentMaster
+
+drop table DepartmentMaster
+
+
+
+
+
+
+
+

@@ -1,0 +1,3 @@
+JOINS ASSIGNMENT
+
+Display the name of the customer, the data of order and the items ordered by the customer

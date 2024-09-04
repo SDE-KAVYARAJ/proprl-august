@@ -1,0 +1,80 @@
+create table Department(dept_no number(2) primary key,deptname varchar(20),location varchar(20),floor number(2))
+
+drop table department
+
+desc Department
+
+create table employee(empno number(3) primary key,managerid number(3),firstname varchar2(20),lastname varchar2(20),userid varchar(20),departmentnumber number(2),constraint fk_depar foreign key(departmentnumber) references Department(dept_no))
+
+alter table employee add salary number(2)
+
+alter table employee add commission number(3)
+
+alter table employee add designation varchar(25)
+
+alter table employee add hra number(5)
+
+alter table employee add pf number(5)
+
+update employee set salary=salary+hra+pf
+
+alter table employee modify hra number(5,2)
+
+alter table employee add constraint chk_pf check (pf<5000)
+
+desc employee
+
+drop table employee
+
+create table customer(custno number(3) primary key,custname varchar2(20),address varchar2(40))
+
+create table order1(orderno number(3) primary key,custno number(3),constraint co_na foreign key(custno) references customer(custno))
+
+alter table order1 add orderdate date
+
+create table orderitem(itemid number(3) primary key,orderno number(3),constraint con_na foreign key(orderno) references order1(orderno))
+
+alter table orderitem add itemname varchar2(20)
+
+alter table orderitem add quantity number(2)
+
+desc customer
+
+alter table customer modify address varchar(100)
+
+create table course(course_id varchar2(5),stream_id varchar(20),title varchar2(40),description varchar2(200),fees number,primary key(course_id,stream_id))
+
+desc course
+
+create table batch(batch_id varchar2(20),course_id varchar2(5),batchname char(1))
+
+-->The institute offers many courses. For a single course there can be many 
+batches and many students belong to a batch. The ER model 
+representation is as follows:
+
+ 
+create table Student
+(  
+Studid  varchar2(20) primary key,   
+Lastname varchar2(25),
+MiddleName varchar2(30), 
+Firstname varchar2(20),  
+Dob Date,
+Address varchar2(50),
+City varchar2(20), 
+State varchar2(2),
+Zipcode varchar2(9),
+Telephone varchar2(10),
+Fax varchar2(10), 
+Email varchar2(30), 
+Grade char(1)
+)    
+desc student
+
+-->Remove the middleName column from the Student table
+
+alter table student add constraint check_gr Check(grade in('A','A+','A-','B','B+','B-','C','C+','C-','D','D+','D-','F','F+','F-'))
+
+-->Rename the student table to ‘Participant’ 
+
+alter table student rename to participant
